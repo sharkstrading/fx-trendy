@@ -21,7 +21,7 @@ class ApplicationRunner {
     void run(final String[] args) {
         final def config = ConfigFileReader.readConfigFromFileYAML(co.nl.sharks.fx.fx_trendy.config.Settings.FILE_APPLICATION_CONFIG_YAML, co.nl.sharks.fx.fx_trendy.config.ApplicationConfig.class)
 
-        if(config == null) {
+        if (config == null) {
             LOGGER.error("${ConfigFileReader.class.simpleName} Need config to continue. Did you populate the file ${co.nl.sharks.fx.fx_trendy.config.Settings.FILE_APPLICATION_CONFIG_YAML}?")
 
             System.exit(1)
@@ -70,11 +70,11 @@ class ApplicationRunner {
         final List<Side> sides = config.sides
 
         final def historicalPerformanceToUse = historicalPerformanceList
-            .findAll { it.dominantSide() != null && sides.contains(it.dominantSide()) }
-            .toSorted { it.toString() }
-            .reverse()
+                .findAll { it.dominantSide() != null && sides.contains(it.dominantSide()) }
+                .toSorted { it.toString() }
+                .reverse()
 
-        if(!historicalPerformanceList.isEmpty()) {
+        if (!historicalPerformanceList.isEmpty()) {
             LOGGER.info("${LocalDate.now()} Today's Trendy Forex instruments:")
             LOGGER.info("Sides: ${sides}")
             LOGGER.info("Detected ${historicalPerformanceList.size()} instruments")

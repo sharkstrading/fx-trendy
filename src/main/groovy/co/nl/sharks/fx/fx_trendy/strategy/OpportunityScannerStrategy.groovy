@@ -51,7 +51,7 @@ class OpportunityScannerStrategy implements IStrategy {
 
     @Override
     void onTick(Instrument instrument, ITick tick) {
-        if(this.instrument != instrument)
+        if (this.instrument != instrument)
             return
 
         currentTick = tick

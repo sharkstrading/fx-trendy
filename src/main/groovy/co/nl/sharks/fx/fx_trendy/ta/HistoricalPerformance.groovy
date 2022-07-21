@@ -28,14 +28,14 @@ class HistoricalPerformance {
         def numUp = numUp()
         def numDown = numDown()
 
-        if(numUp == numDown)
+        if (numUp == numDown)
             return null
 
         numUp > numDown ? Side.BUY : Side.SELL
     }
 
     Integer sideStrength(final Side side) {
-        if(side == null)
+        if (side == null)
             return 0
 
         final def list = collect().findAll { it == side.toMultiplier() }
@@ -52,7 +52,7 @@ class HistoricalPerformance {
     }
 
     Collection<Integer> collect() {
-        [ oneWeek, oneMonth, threeMonths, sixMonths, yearToDate, oneYear ]
+        [oneWeek, oneMonth, threeMonths, sixMonths, yearToDate, oneYear]
     }
 
     Integer dominantSideStrength() {

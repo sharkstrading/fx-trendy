@@ -45,6 +45,6 @@ enum Side {
     }
 
     static List<Side> all() {
-        [ Side.BUY, Side.SELL ]
+        [Side.BUY, Side.SELL]
     }
 }

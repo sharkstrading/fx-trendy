@@ -58,7 +58,7 @@ class SystemListenerImpl implements ISystemListener {
                             break
                         }
                         client.connect(url, username, password)
-                    } catch(UnknownHostException e) {
+                    } catch (UnknownHostException e) {
                         LOGGER.error("Failed to connect to the Dukascopy service. Retrying ...")
                     } catch (Exception e) {
                         LOGGER.error(e.getMessage(), e)

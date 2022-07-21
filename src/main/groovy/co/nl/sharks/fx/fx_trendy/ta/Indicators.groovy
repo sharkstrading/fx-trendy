@@ -27,12 +27,12 @@ class Indicators {
 
         final def bars = HistoryHelper.getBars(history, currentTime.minus(700, ChronoUnit.DAYS), currentTime.truncatedTo(ChronoUnit.DAYS), instrument, Period.DAILY, Filter.NO_FILTER)
 
-        if(bars.size() < 365)
+        if (bars.size() < 365)
             return null
 
         final def startOfYearBar = bars.find { it.time == startOfYear.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli() }
 
-        if(startOfYearBar == null)
+        if (startOfYearBar == null)
             return null
 
         final def mostRecentBar = bars.last()

@@ -5,6 +5,7 @@ import co.nl.sharks.fx.fx_trendy.config.SettingsDukascopy
 import co.nl.sharks.fx.fx_trendy.core.Side
 import co.nl.sharks.fx.fx_trendy.dukas.StrategyRunner
 import co.nl.sharks.fx.fx_trendy.strategy.OpportunityScannerStrategy
+import co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance
 import com.dukascopy.api.Instrument
 import groovy.transform.CompileStatic
 import org.apache.logging.log4j.LogManager
@@ -50,7 +51,7 @@ class ApplicationRunner {
         instruments.each { LOGGER.info("  ${it}") }
         LOGGER.info("-------------------------------------------------------")
 
-        final List<co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance> historicalPerformanceList = []
+        final List<HistoricalPerformance> historicalPerformanceList = []
 
         instruments.each { Instrument instrument ->
             final def scanner = new OpportunityScannerStrategy(config, instrument, period, historicalPerformanceList)
@@ -66,7 +67,7 @@ class ApplicationRunner {
 
         // filters
         // TODO from config
-        final List<Side> sides = [Side.SELL]
+        final List<Side> sides = config.sides
 
         final def historicalPerformanceToUse = historicalPerformanceList
             .findAll { it.dominantSide() != null && sides.contains(it.dominantSide()) }

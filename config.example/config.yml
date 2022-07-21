@@ -1,9 +1,4 @@
 ---
-
-###############################################################################
-# connection settings
-###############################################################################
-
 connection:
   # The URL to use to connect to the Dukascopy platform.
   #
@@ -13,6 +8,11 @@ connection:
   username: '__________'
   # The password to use.
   password: '__________'
+
+# The sides to use, e.g. BUY and SELL
+sides:
+  - "BUY"
+  - "SELL"
 
 # The instruments to use, can use both EURUSD notation and EUR/USD
 #

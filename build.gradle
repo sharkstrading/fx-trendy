@@ -1,0 +1,67 @@
+plugins {
+    // 5.1.0 for Gradle 6.x
+    // 7 and higher for Gradle 7 and higher
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'groovy'
+    id 'application'
+    // how to use the Gradle Versions plugin:
+    //
+    // gradle dependencyUpdates
+    id "com.github.ben-manes.versions" version "0.42.0"
+}
+
+group 'co.nl.sharks.fx'
+version = '0.1.0-SNAPSHOT'
+
+mainClassName = 'co.nl.sharks.fx.fx_trendy.Main'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://www.dukascopy.com/client/jforexlib/publicrepo/" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+}
+
+/**
+ * Dukascopy libraries such as DDS2-jClient-JForex depend on both log4j and slf4j
+ * so we filter out this connection so we can inject our own implementation,
+ * either nop or actual implementation (see below)
+ */
+configurations.implementation {
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+}
+
+dependencies {
+    // groovy
+    implementation 'org.apache.groovy:groovy:4.0.3'
+
+    // dukascopy API for trading
+    implementation 'com.dukascopy.dds2:DDS2-jClient-JForex:3.6.37'
+
+    // yaml config files
+    implementation 'com.fasterxml.jackson:jackson-base:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
+
+    // slf4j for logging
+    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
+    // enable Dukascopy debug logging
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.18.0'
+    // disable Dukascopy debug logging
+    //implementation 'org.slf4j:slf4j-nop:1.7.32'
+
+    // quartz for scheduling
+    implementation 'org.quartz-scheduler:quartz:2.3.2'
+}
+
+/**
+ * Use the Shadow Jar plugin to create a full/fat/uber jar that is runnable.
+ */
+shadowJar {
+    archiveBaseName.set("fx-trendy")
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}

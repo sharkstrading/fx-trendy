@@ -1,0 +1,12 @@
+.idea
+.gradle
+out
+build
+*.iml
+logs
+*.jfx
+reports/*.html
+*.xls
+config/*.yml
+heroku_vars.sh
+output.txt

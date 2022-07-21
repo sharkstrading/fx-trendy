@@ -50,6 +50,7 @@ Then:
 - Java 8 since the JForex SDK assumes you use it, otherwise you may run into Reflection errors
 - Gradle 7.3.3
 
-## Related projects
+## Related projects recommended by the authors
 
 - [Dukascopy historical data downloader by Leonid Pyrlia](https://github.com/Leo4815162342/dukascopy-node)
+- [Technical Analysis for Java](https://github.com/ta4j/ta4j)

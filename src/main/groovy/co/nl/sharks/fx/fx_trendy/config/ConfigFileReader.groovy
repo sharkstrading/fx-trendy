@@ -1,6 +1,6 @@
 package co.nl.sharks.fx.fx_trendy.config
 
-
+import co.nl.sharks.fx.fx_trendy.helper.JacksonHelper
 import com.fasterxml.jackson.databind.ObjectMapper
 import groovy.transform.CompileStatic
 import org.apache.logging.log4j.LogManager
@@ -19,7 +19,7 @@ class ConfigFileReader {
     static <T> T readConfigFromFileYAML(final String filename, final Class<T> klazz) {
         checkNotNullMulti([filename, klazz] as List<Object>, ["filename", "class"])
 
-        final ObjectMapper mapper = co.nl.sharks.fx.fx_trendy.helper.JacksonHelper.objectMapperYaml()
+        final ObjectMapper mapper = JacksonHelper.objectMapperYaml()
         final T config
         try {
             config = mapper.readValue(new File(filename), klazz)

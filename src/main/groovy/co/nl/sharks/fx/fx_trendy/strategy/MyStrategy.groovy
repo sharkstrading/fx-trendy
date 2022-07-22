@@ -1,6 +1,8 @@
 package co.nl.sharks.fx.fx_trendy.strategy
 
-
+import co.nl.sharks.fx.fx_trendy.config.ApplicationConfig
+import co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance
+import co.nl.sharks.fx.fx_trendy.ta.Indicators
 import com.dukascopy.api.*
 import groovy.transform.CompileStatic
 import org.apache.logging.log4j.LogManager
@@ -11,24 +13,23 @@ import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalUnit
 
 @CompileStatic
-class OpportunityScannerStrategy implements IStrategy {
-    private static final Logger LOGGER = LogManager.getLogger(OpportunityScannerStrategy.class)
+class MyStrategy implements IStrategy {
+    private static final Logger LOGGER = LogManager.getLogger(MyStrategy.class)
 
     private IContext context
 
-    private final co.nl.sharks.fx.fx_trendy.config.ApplicationConfig applicationConfig
+    private final ApplicationConfig applicationConfig
     private final Period period
     private final Instrument instrument
     private final int numBarsMinimum
     private final int numBarsDesired
     private final TemporalUnit barsTimePeriod
-    private final List<co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance> historicalPerformanceList
+    private final List<HistoricalPerformance> historicalPerformanceList
 
     private volatile ITick currentTick
     private volatile Instant currentTickTime
-    private volatile boolean runOnce
 
-    OpportunityScannerStrategy(final co.nl.sharks.fx.fx_trendy.config.ApplicationConfig applicationConfig, final Instrument instrument, final Period period, List<co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance> historicalPerformanceList, final int numBarsMinimum = 336, final int numBarsDesired = 350) {
+    MyStrategy(final ApplicationConfig applicationConfig, final Instrument instrument, final Period period, List<HistoricalPerformance> historicalPerformanceList, final int numBarsMinimum = 336, final int numBarsDesired = 350) {
         this.barsTimePeriod = ChronoUnit.HOURS
         this.historicalPerformanceList = historicalPerformanceList
         this.numBarsMinimum = numBarsMinimum
@@ -44,7 +45,7 @@ class OpportunityScannerStrategy implements IStrategy {
 
         LOGGER.info("${this.class.simpleName} starting up ...")
 
-        final def historicPerformance = co.nl.sharks.fx.fx_trendy.ta.Indicators.historicalPerformance(instrument, context.history)
+        final def historicPerformance = Indicators.historicalPerformance(instrument, context.history)
 
         historicalPerformanceList.add historicPerformance
     }

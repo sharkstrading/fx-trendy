@@ -1,10 +1,12 @@
 package co.nl.sharks.fx.fx_trendy.run
 
+import co.nl.sharks.fx.fx_trendy.config.ApplicationConfig
 import co.nl.sharks.fx.fx_trendy.config.ConfigFileReader
+import co.nl.sharks.fx.fx_trendy.config.Settings
 import co.nl.sharks.fx.fx_trendy.config.SettingsDukascopy
 import co.nl.sharks.fx.fx_trendy.core.Side
 import co.nl.sharks.fx.fx_trendy.dukas.StrategyRunner
-import co.nl.sharks.fx.fx_trendy.strategy.OpportunityScannerStrategy
+import co.nl.sharks.fx.fx_trendy.strategy.MyStrategy
 import co.nl.sharks.fx.fx_trendy.ta.HistoricalPerformance
 import com.dukascopy.api.Instrument
 import groovy.transform.CompileStatic
@@ -19,10 +21,10 @@ class ApplicationRunner {
     private static final Logger LOGGER = LogManager.getLogger(ApplicationRunner.class)
 
     void run(final String[] args) {
-        final def config = ConfigFileReader.readConfigFromFileYAML(co.nl.sharks.fx.fx_trendy.config.Settings.FILE_APPLICATION_CONFIG_YAML, co.nl.sharks.fx.fx_trendy.config.ApplicationConfig.class)
+        final def config = ConfigFileReader.readConfigFromFileYAML(Settings.FILE_APPLICATION_CONFIG_YAML, ApplicationConfig.class)
 
         if (config == null) {
-            LOGGER.error("${ConfigFileReader.class.simpleName} Need config to continue. Did you populate the file ${co.nl.sharks.fx.fx_trendy.config.Settings.FILE_APPLICATION_CONFIG_YAML}?")
+            LOGGER.error("${ConfigFileReader.class.simpleName} Need config to continue. Did you populate the file ${Settings.FILE_APPLICATION_CONFIG_YAML}?")
 
             System.exit(1)
         }
@@ -37,7 +39,7 @@ class ApplicationRunner {
         runApplication(args, config)
     }
 
-    private void runApplication(final String[] args, final co.nl.sharks.fx.fx_trendy.config.ApplicationConfig config) {
+    private void runApplication(final String[] args, final ApplicationConfig config) {
         final StrategyRunner strategyRunner = new StrategyRunner()
 
         final def period = SettingsDukascopy.DATA_FEED_PERIOD
@@ -54,7 +56,7 @@ class ApplicationRunner {
         final List<HistoricalPerformance> historicalPerformanceList = []
 
         instruments.each { Instrument instrument ->
-            final def scanner = new OpportunityScannerStrategy(config, instrument, period, historicalPerformanceList)
+            final def scanner = new MyStrategy(config, instrument, period, historicalPerformanceList)
 
             strategyRunner.run(
                     config.connection.url,

@@ -1,6 +1,6 @@
 package co.nl.sharks.fx.fx_trendy.history
 
-
+import co.nl.sharks.fx.fx_trendy.config.SettingsDukascopy
 import com.dukascopy.api.*
 import groovy.transform.CompileStatic
 
@@ -19,7 +19,7 @@ class HistoryHelper {
 
         final long startGatheringDataLong = startLong(history, period, start)
         final long currentTimeLong = endLong(history, period, end)
-        final List<IBar> bars = history.getBars(instrument, period, co.nl.sharks.fx.fx_trendy.config.SettingsDukascopy.OFFER_SIDE, filter, startGatheringDataLong, currentTimeLong)
+        final List<IBar> bars = history.getBars(instrument, period, SettingsDukascopy.OFFER_SIDE, filter, startGatheringDataLong, currentTimeLong)
 
         bars
     }

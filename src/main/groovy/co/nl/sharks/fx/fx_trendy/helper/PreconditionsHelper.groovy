@@ -7,7 +7,7 @@ import static com.google.common.base.Preconditions.checkNotNull
 
 @CompileStatic
 class PreconditionsHelper {
-    static boolean checkNotNullMulti(List<Object> objects, List<String> names) {
+    static void checkNotNullMulti(List<Object> objects, List<String> names) {
         if (objects == null || names == null)
             throw new NullPointerException("All arguments must be non-null")
 

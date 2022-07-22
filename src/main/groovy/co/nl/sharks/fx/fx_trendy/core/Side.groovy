@@ -16,7 +16,7 @@ enum Side {
      * @return The inverted side.
      */
     Side invert() {
-        return this.equals(BUY) ? SELL : BUY
+        return this == BUY ? SELL : BUY
     }
 
     /**
@@ -25,7 +25,7 @@ enum Side {
      * @return
      */
     int toMultiplier() {
-        return this.equals(BUY) ? 1 : -1
+        return this == BUY ? 1 : -1
     }
 
     /**
@@ -41,10 +41,10 @@ enum Side {
     }
 
     String toEmojiString() {
-        Side.BUY == this ? '🔼' : '🔽'
+        BUY == this ? '🔼' : '🔽'
     }
 
     static List<Side> all() {
-        [Side.BUY, Side.SELL]
+        [BUY, SELL]
     }
 }
